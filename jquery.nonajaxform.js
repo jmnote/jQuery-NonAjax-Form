@@ -1,13 +1,21 @@
-jQuery(function($) { $.extend({
-	form: function(url, data, method) {
-		if (method == null) method = 'post';
-		if (data == null) data = {};
+;jQuery(function($) { $.extend({
+	form: function( options ) {
+		var defaults = {
+			method: 'post',
+			target: '_self',
+			data: {},
+		}
+		var settings = $.extend( {}, defaults, options );
+
 		var form = $('<form>').attr({
-			method: method,
-			action: url
+			method: settings.method,
+			target: settings.target,
+			data: settings.data,
+			action: settings.url,
 		}).css({
 			display: 'none'
 		});
+
 		var addData = function(name, data) {
 			if ($.isArray(data)) {
 				for (var i = 0; i < data.length; i++) {
@@ -31,11 +39,14 @@ jQuery(function($) { $.extend({
 				}));
 			}
 		};
-		for (var key in data) {
-			if (data.hasOwnProperty(key)) {
-				addData(key, data[key]);
+
+		for (var key in settings.data) {
+			if (settings.data.hasOwnProperty(key)) {
+				addData(key, settings.data[key]);
 			}
 		}
+
 		return form.appendTo('body');
 	}
+
 }); });
