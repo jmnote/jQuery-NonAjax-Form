@@ -11,7 +11,7 @@
 			method: settings.method,
 			target: settings.target,
 			data: settings.data,
-			action: settings.action,
+			action: settings.action
 		}).css({
 			display: 'none'
 		});
